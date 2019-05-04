@@ -134,7 +134,7 @@ resource "google_compute_disk" "ems-encrypted-boot-disk" {
   count = "${var.KMS_KEY != "" ? 1 : 0}"
   name  = "${var.CLUSTER_NAME}"
   zone  = "${var.EMS_ZONE}"
-  size  = "50"
+  size  = "100"
   image = "projects/elastifle-public-196717/global/images/${var.IMAGE}"
   disk_encryption_key{
         kms_key_self_link = "${var.KMS_KEY}"
@@ -145,7 +145,7 @@ resource "google_compute_disk" "ems-boot-disk" {
   count = "${var.KMS_KEY == "" ? 1 : 0}"
   name  = "${var.CLUSTER_NAME}"
   zone  = "${var.EMS_ZONE}"
-  size  = "50"
+  size  = "100"
   image = "projects/elastifle-public-196717/global/images/${var.IMAGE}"
 }
 
