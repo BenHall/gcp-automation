@@ -134,7 +134,7 @@ resource "google_compute_disk" "ems-encrypted-boot-disk" {
   count = "${var.KMS_KEY != "" ? 1 : 0}"
   name  = "${var.CLUSTER_NAME}"
   zone  = "${var.EMS_ZONE}"
-  size  = "100"
+  size  = "50"
   image = "projects/elastifle-public-196717/global/images/${var.IMAGE}"
   disk_encryption_key{
         kms_key_self_link = "${var.KMS_KEY}"
@@ -145,7 +145,7 @@ resource "google_compute_disk" "ems-boot-disk" {
   count = "${var.KMS_KEY == "" ? 1 : 0}"
   name  = "${var.CLUSTER_NAME}"
   zone  = "${var.EMS_ZONE}"
-  size  = "100"
+  size  = "50"
   image = "projects/elastifle-public-196717/global/images/${var.IMAGE}"
 }
 
@@ -156,7 +156,7 @@ resource "google_compute_disk" "ems-boot-disk" {
 resource "google_compute_instance" "Elastifile-EMS-Public" {
   count        = "${var.USE_PUBLIC_IP}"
   name         = "${var.CLUSTER_NAME}"
-  machine_type = "n1-standard-8"
+  machine_type = "n1-standard-2"
   zone         = "${var.EMS_ZONE}"
 
   tags = ["https-server"]
@@ -221,7 +221,7 @@ SCRIPT
 resource "google_compute_instance" "Elastifile-EMS-Private" {
   count        = "${1 - var.USE_PUBLIC_IP}"
   name         = "${var.CLUSTER_NAME}"
-  machine_type = "n1-standard-8"
+  machine_type = "n1-standard-2"
   zone         = "${var.EMS_ZONE}"
 
   tags = ["https-server"]
